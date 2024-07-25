@@ -1,0 +1,11 @@
+{% extends "main/includes/base.html" %}
+{% load static %}
+{% block content %}
+{% if request.user.is_authenticated %}
+    {% include "main/includes/create_new_profile_modal.html" %}
+    {% include "main/includes/header.html" %}
+    {% include "main/includes/wisherstable.html" %}
+{% else %}
+    {% include "main/includes/hero.html" %}
+{% endif %}
+{% endblock %}

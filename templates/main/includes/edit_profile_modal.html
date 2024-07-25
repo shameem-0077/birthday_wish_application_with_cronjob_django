@@ -1,0 +1,70 @@
+{% load custom_filters %}
+<dialog id="edit_profile_modal{{profile.pk}}" class="modal">
+    <div class="modal-box max-w-3xl">
+        <h3 class="text-lg font-bold">Create new birthday profile</h3>
+        <div>
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <form id="edit_profile_form{{profile.pk}}" action="{% url 'users_urls:edit_profile' pk=profile.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="flex gap-3">
+                    <div class="flex-1">
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Name</span>
+                            </div>
+                            <input type="text" name="name" placeholder="Type here" value="{{profile.name}}" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Photo</span>
+                            </div>
+                            <input type="file" name="photo" class="file-input file-input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Date of birth</span>
+                            </div>
+                            <input type="date" value="{{profile.date_of_birth|format_date_for_input}}" name="dob" placeholder="Type here" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Relation</span>
+                            </div>
+                            <select class="select select-bordered" name="relation">
+                                <option selected value="{{profile.relation.pk}}">{{profile.relation.name }}</option>
+                                {% for relation in relations %}
+                                    <option value="{{relation.pk}}">{{relation.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="flex-1">
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email</span>
+                            </div>
+                            <input type="email" name="email" value="{{profile.email }}" placeholder="Enter email" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email Subject</span>
+                            </div>
+                            <input type="text" name="email_subject" value="{{profile.email_subject}}" placeholder="Enter email subject" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email Content</span>
+                            </div>
+                            <textarea placeholder="Content" name="email_content" class="textarea textarea-bordered textarea-lg w-full h-full">{{profile.email_content}}</textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex mt-10">
+                    <button class="btn w-full" form="edit_profile_form{{profile.pk}}">Edit Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</dialog>

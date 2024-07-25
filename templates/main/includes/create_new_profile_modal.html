@@ -1,0 +1,69 @@
+<dialog id="create_profile_modal" class="modal">
+    <div class="modal-box max-w-3xl">
+        <h3 class="text-lg font-bold">Create new birthday profile</h3>
+        <div>
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <form id="create_profile_form" action="{% url 'users_urls:create_profile_url' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="flex gap-3">
+                    <div class="flex-1">
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Name</span>
+                            </div>
+                            <input type="text" name="name" placeholder="Type here" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Photo</span>
+                            </div>
+                            <input type="file" name="photo" class="file-input file-input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Date of birth</span>
+                            </div>
+                            <input type="date" name="dob" placeholder="Type here" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Relation</span>
+                            </div>
+                            <select class="select select-bordered" name="relation">
+                                <option disabled selected>Pick one</option>
+                                {% for relation in relations %}
+                                    <option value="{{relation.pk}}">{{relation.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="flex-1">
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email</span>
+                            </div>
+                            <input type="email" name="email" placeholder="Enter email" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email Subject</span>
+                            </div>
+                            <input type="text" name="email_subject" placeholder="Enter email subject" class="input input-bordered w-full" />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                            <span class="label-text">Email Content</span>
+                            </div>
+                            <textarea placeholder="Content" name="email_content" class="textarea textarea-bordered textarea-lg w-full h-full"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex mt-10">
+                    <button class="btn w-full" form="create_profile_form">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</dialog>

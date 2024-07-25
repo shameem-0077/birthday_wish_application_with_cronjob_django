@@ -1,0 +1,56 @@
+{% load custom_filters %}
+<div class="overflow-x-auto px-10 border-solid border-white border-x">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Actions</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for profile in birthday_profile_instances %}
+          <tr>
+            <td>
+              <div class="flex items-center gap-3">
+                <div class="avatar">
+                  <div class="mask mask-squircle h-12 w-12">
+                    <img
+                      src="{{profile.profile_image.url}}"
+                      alt="Avatar Tailwind CSS Component" />
+                  </div>
+                </div>
+                <div>
+                  <div class="font-bold">{{profile.name}}</div>
+                  <div class="text-sm opacity-50">{{ profile.relation.name }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              {{ profile.date_of_birth }}
+            </td>
+            <td>
+              {{ profile.date_of_birth|calculate_age }}
+            </td>
+            <td>
+              {{ profile.email }}
+            </td>
+            <td>
+              <div class="flex gap-3">
+                <button class="btn btn-outline btn-info btn-xs" onclick="document.getElementById('edit_profile_modal{{ profile.pk }}').showModal()">Edit</button>
+                {% include "main/includes/edit_profile_modal.html" with profile=profile %}
+                <button class="btn btn-outline btn-error btn-xs" onclick="document.getElementById('delete_profile_modal{{ profile.pk }}').showModal()">Delete</button>
+                {% include "main/includes/delete_profile_modal.html" with profile_id=profile.pk profile_name=profile.name %}
+            </div>
+            </td>
+            <th>
+            </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
