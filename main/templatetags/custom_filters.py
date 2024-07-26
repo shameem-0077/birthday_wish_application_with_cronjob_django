@@ -17,3 +17,8 @@ def format_date_for_input(value):
     if value:
         return value.strftime('%Y-%m-%d')
     return ''
+
+
+@register.filter(name='add_class')
+def add_class(field, css_class):
+    return field.as_widget(attrs={"class": css_class})

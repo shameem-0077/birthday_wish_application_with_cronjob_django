@@ -65,6 +65,8 @@ class Notification(BaseModel):
     title = models.CharField(max_length=128)
     message = models.TextField(null=True, blank=True)
     birthday_profile = models.ForeignKey(BirthdayProfile, on_delete=models.CASCADE)
+    is_readed = models.BooleanField(default=False)
+    is_sended = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.title)

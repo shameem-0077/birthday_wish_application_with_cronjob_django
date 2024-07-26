@@ -7,57 +7,75 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 
 from users.functions import *
-
 from users.models import *
+from users.forms import LoginForm, CreateAccountForm
 
 # Create your views here.
 
 def login(request):
+    form = LoginForm()
     if request.method == "POST":
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            auth_login(request=request, user=user)
-            return redirect(reverse("main_urls:home_url"))
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username', None)
+            password = form.cleaned_data.get('password', None)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request=request, user=user)
+                return redirect(reverse("main_urls:home_url"))
+            else:
+                messages.error(request, "Invalid credentials")
+                return redirect(reverse("users_urls:signin_url"))
         else:
-            print("failed")
-    
+            error_message = generate_form_errors(form)
+            messages.error(request, str(error_message))
+            return redirect(reverse("users_urls:signin_url"))
     context = {
-        'active_class_name': 'none'
+        "form": form
     }
     return render(request, 'users/login.html', context=context)
 
 
 def signup(request):
-    if request.method == 'POST':
-        username = request.POST.get('username', None)
-        first_name = request.POST.get('first_name', None)
-        last_name = request.POST.get('last_name', None)
-        email = request.POST.get('email', None)
-        photo = request.FILES.get('photo', None)
-        password = request.POST.get('password', None)
+    form = CreateAccountForm()
 
-        user = MainUser.objects.create_user(
-            username=username,
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            profile_image=photo,
-            password=password,
-        )
-        
-        return redirect(reverse('users_urls:signin_url'))
+    if request.method == 'POST':
+        form = CreateAccountForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            # username = request.POST.get('username', None)
+            # first_name = request.POST.get('first_name', None)
+            # last_name = request.POST.get('last_name', None)
+            # email = request.POST.get('email', None)
+            # photo = request.FILES.get('photo', None)
+            # password = request.POST.get('password', None)
+
+            # user = MainUser.objects.create_user(
+            #     username=username,
+            #     email=email,
+            #     first_name=first_name,
+            #     last_name=last_name,
+            #     profile_image=photo,
+            #     password=password,
+            # )
+            
+            return redirect(reverse('users_urls:signin_url'))
+        else:
+            error_message = generate_form_errors(form)
+            messages.error(request, str(error_message))
     context = {
-        'active_class_name': 'right-panel-active'
+        "form": form
     }
     return render(request, 'users/signup.html', context=context)
 
 
 def logout_user(request):
     logout(request)
+    form = LoginForm()
+
     context = {
-        'title': 'Login'
+        'title': 'Login',
+        "form": form
     }
     return render(request, 'users/login.html', context=context)
 

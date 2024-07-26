@@ -1,57 +1,72 @@
 {% extends "main/includes/base.html" %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
 <div class="hero bg-base-200 min-h-screen">
 	<div class="hero-content flex-col lg:flex-row-reverse">
 	  <div class="text-center lg:text-left">
 		<h1 class="text-5xl font-bold">SIGNUP NOW!</h1>
 		<p class="py-6">
-		  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-		  quasi. In deleniti eaque aut repudiandae et a id nisi.
+			Stay connected and celebrate the special moments with those who matter most.
+			Sign up now to get started with our Birthday Wisher and make sure every birthday is remembered,
+			 even in the busiest of times.
 		</p>
 	  </div>
 	  <div class="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
 		<form class="card-body" action="{% url 'users_urls:signup_url' %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="form-control">
-				<label class="label">
-				  <span class="label-text">Username</span>
+				<label class="label" for="{{ form.username.id_for_label }}">
+				  <span class="label-text">{{ form.username.label }}</span>
 				</label>
-				<input type="text" placeholder="Username" name="username" class="input input-bordered" required />
+				{{ form.username|add_class:"input input-bordered" }}
+				{{ form.username.errors }}
 			  </div>
 			<div class="flex gap-3">
 				<div class="form-control">
-					<label class="label">
-					  <span class="label-text">First name</span>
+					<label class="label" for="{{ form.first_name.id_for_label }}">
+					  <span class="label-text">{{ form.first_name.label }}</span>
 					</label>
-					<input type="text" placeholder="First name" name="first_name" class="input input-bordered" required />
+					{{ form.first_name|add_class:"input input-bordered" }}
+					{{ form.first_name.errors }}
 				  </div>
 				  <div class="form-control">
-					<label class="label">
-					  <span class="label-text">Last name</span>
+					<label class="label" for="{{ form.last_name.id_for_label }}">
+					  <span class="label-text">{{ form.last_name.label }}</span>
 					</label>
-					<input type="text" placeholder="Last name" name="last_name" class="input input-bordered" required />
+					{{ form.last_name|add_class:"input input-bordered" }}
+					{{ form.last_name.errors }}
 				  </div>
 			</div>
 		  <div class="form-control">
-			<label class="label">
-			  <span class="label-text">Email</span>
+			<label class="label" for="{{ form.email.id_for_label }}">
+			  <span class="label-text">{{ form.email.label }}</span>
 			</label>
-			<input type="email" placeholder="Email" name="email" class="input input-bordered" required />
+			{{ form.email|add_class:"input input-bordered" }}
+			{{ form.email.errors }}
 		  </div>
 		  <div class="form-control">
 				<label class="form-control w-full">
-					<div class="label">
-					<span class="label-text">Photo</span>
+					<div class="label" for="{{ form.profile_image.id_for_label }}">
+					<span class="label-text">{{ form.profile_image.label }}</span>
 					</div>
-					<input type="file" name="photo" class="file-input file-input-bordered w-full" />
+					{{ form.profile_image|add_class:"file-input file-input-bordered w-full" }}
+					{{ form.profile_image.errors }}
 				</label>
 			</div>
 		  <div class="form-control">
-			<label class="label">
-			  <span class="label-text">Password</span>
+			<label class="label" for="{{ form.password1.id_for_label }}">
+				<span class="label-text">{{ form.password1.label }}</span>
 			</label>
-			<input type="password" placeholder="password" name="password" class="input input-bordered" required />
+			{{ form.password1|add_class:"input input-bordered" }}
+			{{ form.password1.errors }}
+		  </div>
+		  <div class="form-control">
+			<label class="label" for="{{ form.password2.id_for_label }}">
+				<span class="label-text">{{ form.password2.label }}</span>
+			</label>
+			{{ form.password2|add_class:"input input-bordered" }}
+			{{ form.password2.errors }}
 			<label class="label">
 				<a href="{% url 'users_urls:signin_url' %}" class="label-text-alt link link-hover">Already have an account?</a>
 			</label>

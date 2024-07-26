@@ -1,13 +1,18 @@
+{% load static %}
 <div
   class="hero min-h-screen"
-  style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
+  style="background-image: url({% static 'images/hero-bg.jpg' %});">
   <div class="hero-overlay bg-opacity-60"></div>
   <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
+    <div class="max-w-2xl">
+      <h1 class="mb-5 text-5xl font-bold">Never Miss a Birthday Again</h1>
       <p class="mb-5">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+        In a world that moves at lightning speed,
+        it's easy to let important dates slip through the cracks.
+        Our Birthday Wisher ensures you stay connected with loved ones,
+        making sure every special day is celebrated.
+        Keep the warmth of friendship and family alive,
+        no matter how busy life gets.
       </p>
       <a href="{% url 'users_urls:signup_url' %}">
           <button class="btn btn-primary">Get Started</button>

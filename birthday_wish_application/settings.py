@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mailqueue',
+    'django_crontab',
 
     'main',
     'users',
@@ -63,7 +64,13 @@ DATABASES = {
     }
 }
 
+CRONJOBS = [
+    ('*/1 * * * *', 'main.cron.send_birthday_wish_job')
+]
 
+# CRONJOBS = [
+#     ('0 0 * * *', 'myapp.cron.my_scheduled_job')
+# ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {

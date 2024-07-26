@@ -10,23 +10,6 @@
     {% include "main/includes/notifications_modal.html" with notifications=notifications %}
     <div class="form-control">
         <button class="btn btn-primary btn-sm" onclick="create_profile_modal.showModal()">Add new profile</button>
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                    <div class="toast toast_message_div">
-                        <div class="alert alert-error">
-                        <span>{{ message }}</span>
-                        </div>
-                    </div>
-                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                    <div class="toast toast_message_div">
-                        <div class="alert alert-success">
-                        <span>{{ message }}</span>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
     </div>
     <div class="dropdown dropdown-end">
     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
