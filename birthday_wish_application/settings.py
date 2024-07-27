@@ -65,12 +65,8 @@ DATABASES = {
 }
 
 CRONJOBS = [
-    ('*/1 * * * *', 'main.cron.send_birthday_wish_job')
+    ('0 0 * * *', 'main.cron.send_birthday_wish_job')
 ]
-
-# CRONJOBS = [
-#     ('0 0 * * *', 'myapp.cron.my_scheduled_job')
-# ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -122,8 +118,8 @@ MAILQUEUE_LIMIT = 50
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'shameem.talrop@gmail.com'
-EMAIL_HOST_PASSWORD = 'mbpe gfmt ywxj axsy'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
